@@ -1,0 +1,60 @@
+# ============================================================
+# West Hollywood Directory — Hugo site config
+# ============================================================
+# Docs: https://gohugo.io/getting-started/configuration/
+# Any value below can be referenced in templates via {{ site.Params.XXX }} or {{ site.Title }}.
+
+baseURL           = "https://westhollywooddirectory.com/"
+languageCode      = "en-us"
+title             = "West Hollywood Directory"
+defaultContentLanguage = "en"
+
+# Strip the trailing ".html" from URLs — cleaner look, SEO-standard.
+# e.g. /listings/gracias-madre/  instead of  /listings/gracias-madre.html
+uglyURLs          = false
+
+# Auto-generate /robots.txt so search engines know what to crawl.
+enableRobotsTXT   = true
+
+# --- Pagination -----------------------------------------------
+# How many listings per page on category archive pages before "Next ›"
+[pagination]
+  pagerSize = 24
+
+# --- Taxonomies -----------------------------------------------
+# These are the filterable facets for every listing. Hugo auto-generates
+# archive pages for each taxonomy (e.g. /categories/restaurants-bars/).
+# Adding a new subcategory later is just tagging a listing — no template work.
+[taxonomies]
+  category    = "categories"
+  subcategory = "subcategories"
+
+# --- Output formats -------------------------------------------
+# Enable JSON output on the homepage so Fuse.js (client-side search)
+# can fetch a single /index.json with every listing. Set up now so
+# search in Step 7 is plug-and-play.
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# --- Markup ---------------------------------------------------
+[markup.goldmark.renderer]
+  unsafe = true  # allow raw HTML in markdown (needed for ad slot placeholders)
+
+# --- Site-wide params (accessible in any template) ------------
+[params]
+  description   = "Find the best restaurants, bars, health & wellness, beauty, and local services in West Hollywood, CA."
+  city          = "West Hollywood"
+  state         = "CA"
+  author        = "Oliver Drakeford"
+  contactEmail  = "oliverdrakeford@gmail.com"
+
+  # Design tokens (mirrored here so templates can reference them;
+  # the actual CSS vars live in the theme stylesheet).
+  [params.colors]
+    slateBlue   = "#6566D5"
+    turquoise   = "#4ECDC4"
+    limeFizz    = "#CCFC40"
+    bgCard      = "#EFF1F3"
+    bgPage      = "#FAFAFB"
+    text        = "#1A1A2E"
+    textMuted   = "#6B6B85"
