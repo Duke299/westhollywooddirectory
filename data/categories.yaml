@@ -1,0 +1,77 @@
+# ============================================================
+# Categories — single source of truth
+# ============================================================
+# Edit this file to:
+#   • change display names, order, or icons
+#   • add/remove subcategories
+#   • change the gradient colors on the homepage "Top Four" cards
+#
+# The `slug` must match how Hugo URL-ifies the taxonomy term:
+#   "Mental Health" → mental-health
+#   "Restaurants & Bars" → restaurants-bars
+# Hugo does this automatically; don't change slug without also updating
+# the category names used in listing frontmatter.
+#
+# Icons come from lucide.dev — pick any name from there.
+# ============================================================
+
+featured:
+  - slug: fitness
+    name: Fitness
+    icon: dumbbell
+    gradient: "linear-gradient(160deg, #FFB396 0%, #E87654 50%, #B8442A 100%)"
+    subcategories: ["Gyms", "Personal Trainers", "CrossFit", "Group Classes"]
+    short_subs: ["Gyms", "Trainers", "CrossFit"]
+
+  - slug: restaurants-bars
+    name: Restaurants & Bars
+    display_name: Restaurants
+    icon: utensils-crossed
+    gradient: "linear-gradient(160deg, #FFE4A8 0%, #E8B454 50%, #A87420 100%)"
+    subcategories: ["Italian", "Mexican", "Sushi", "Cafes", "Cocktail Bars", "Brunch"]
+    short_subs: ["Italian", "Mexican", "Brunch"]
+
+  - slug: mental-health
+    name: Mental Health
+    icon: brain
+    gradient: "linear-gradient(160deg, #B8BCE8 0%, #6670BA 60%, #3D4690 100%)"
+    subcategories: ["Couples Therapy", "Anxiety Therapy", "Family Therapy", "Individual Therapy"]
+    short_subs: ["Couples", "Anxiety", "Family"]
+
+  - slug: wellness
+    name: Wellness
+    icon: flower-2
+    gradient: "linear-gradient(160deg, #A8E6DF 0%, #4ECDC4 50%, #2A8A83 100%)"
+    subcategories: ["Spas", "Massage", "Yoga", "Pilates", "Med Spas"]
+    short_subs: ["Spas", "Massage", "Yoga"]
+
+secondary:
+  - slug: beauty-grooming
+    name: Beauty & Grooming
+    icon: scissors
+    subcategories: ["Hair Salons", "Barbers", "Nail Salons"]
+    short_meta: "Hair, Barbers, Nails"
+
+  - slug: home-services
+    name: Home Services
+    icon: hammer
+    subcategories: ["Cleaning", "Handyman", "Movers"]
+    short_meta: "Cleaning, Movers, Handyman"
+
+  - slug: professional-services
+    name: Professional Services
+    icon: briefcase
+    subcategories: ["Lawyers", "Accountants", "Real Estate"]
+    short_meta: "Lawyers, Accountants, Real Estate"
+
+  - slug: nightlife
+    name: Nightlife
+    icon: music
+    subcategories: []
+    short_meta: "Bars, Clubs, Live Music"
+
+  - slug: shopping
+    name: Shopping
+    icon: shopping-bag
+    subcategories: []
+    short_meta: "Boutiques, Home, Vintage"

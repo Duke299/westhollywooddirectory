@@ -32,3 +32,6 @@ package-lock.json.bak
 
 # Logs
 *.log
+
+# Design mockups — disposable, not shipped to production
+mockups/

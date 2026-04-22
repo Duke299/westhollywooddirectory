@@ -1,0 +1,24 @@
+{{/* <head> contents: meta, title, fonts, CSS */}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{/* Title: page-specific on sub-pages, site title on homepage */}}
+<title>{{ if .IsHome }}{{ site.Title }} — Local Business Directory{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+
+{{/* Description: page-specific if set, otherwise site default */}}
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+
+{{/* Canonical URL (helps avoid duplicate-content issues) */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* Google Fonts — Anton for headers, Poppins for body */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+{{/* Site CSS — minified + fingerprinted for cache-busting */}}
+{{ $css := resources.Get "css/main.css" | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+{{/* Favicon placeholder — replace with real icon in /static/favicon.ico later */}}
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' fill='%236566D5'/><text x='50%' y='65%' text-anchor='middle' font-family='Arial' font-size='14' font-weight='900' fill='%23CCFC40'>W</text></svg>">

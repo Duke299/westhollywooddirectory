@@ -1,0 +1,28 @@
+{{/*
+  Placeholder single-page template. Step 7 replaces this with the full
+  listing page (Google Maps embed, LocalBusiness schema, lead form, etc.).
+  Until then: a readable minimum so any content renders.
+*/}}
+{{ define "main" }}
+<section style="padding: 80px 0;">
+  <div class="container" style="max-width: 760px;">
+    {{ with .Params.categories }}
+      <div class="kicker">{{ index . 0 }}{{ with $.Params.subcategories }} · {{ index . 0 }}{{ end }}</div>
+    {{ end }}
+    <h1 style="font-size: 72px; text-transform: uppercase; margin: 12px 0 24px;">{{ .Title }}</h1>
+
+    {{ with .Params.tagline }}
+      <p style="font-size: 20px; font-style: italic; color: var(--text-muted); max-width: 620px; margin-bottom: 32px;">“{{ . }}”</p>
+    {{ end }}
+
+    <div style="display: grid; grid-template-columns: auto 1fr; gap: 10px 18px; font-size: 15px; margin: 32px 0; color: var(--text);">
+      {{ with .Params.address }}<div><i data-lucide="map-pin"></i></div><div>{{ . }}</div>{{ end }}
+      {{ with .Params.phone }}<div><i data-lucide="phone"></i></div><div>{{ . }}</div>{{ end }}
+      {{ with .Params.hours_summary }}<div><i data-lucide="clock"></i></div><div>{{ . }}</div>{{ end }}
+      {{ with .Params.website }}<div><i data-lucide="globe"></i></div><div><a href="{{ . }}" rel="noopener" target="_blank" style="color: var(--slate-blue);">{{ . }}</a></div>{{ end }}
+    </div>
+
+    <div style="line-height: 1.8; font-size: 16px;">{{ .Content }}</div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,178 @@
+{{ define "main" }}
+
+{{/* ==================== HERO ==================== */}}
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <div>
+        <div class="eyebrow hero-eyebrow">The Independent Guide to the Strip</div>
+        <h1>WHAT DO YOU NEED IN <span class="accent">WEST<br>HOLLYWOOD?</span></h1>
+        <p class="hero-lede"><strong>From a therapist's couch to a trainer's gym to a spa's massage table</strong> — the local-owned directory for everything West Hollywood. Verified, independent, no pay-for-rank.</p>
+        <form class="hero-search-wrap" onsubmit="event.preventDefault()" role="search">
+          <input type="search" placeholder="Search: couples therapy, pilates, cocktails…" id="home-search" aria-label="Search businesses">
+          <button type="submit"><i data-lucide="search"></i>Search</button>
+        </form>
+        <p class="hero-tags">
+          Popular:
+          <a href="{{ "/subcategories/couples-therapy/" | relURL }}">Couples Therapy</a>
+          <a href="{{ "/subcategories/pilates/" | relURL }}">Pilates</a>
+          <a href="{{ "/subcategories/brunch/" | relURL }}">Brunch</a>
+          <a href="{{ "/subcategories/cocktail-bars/" | relURL }}">Cocktail Bars</a>
+        </p>
+      </div>
+
+      {{/* Hero Editor's Pick — first listing with editor_pick: true, or fallback */}}
+      <div class="hero-featured">
+        {{ $pick := first 1 (where site.RegularPages "Params.editor_pick" true) }}
+        {{ with $pick }}
+          {{ range . }}
+            <div class="img">
+              <span class="badge">Editor's Pick</span>
+              <div class="caption">
+                <div class="kicker">
+                  {{ with .Params.categories }}{{ index . 0 }}{{ end }}{{ with .Params.subcategories }} · {{ index . 0 }}{{ end }}
+                </div>
+                <h3>{{ .Title | upper }}</h3>
+                {{ with .Params.tagline }}<p>“{{ . }}”</p>{{ end }}
+              </div>
+            </div>
+          {{ end }}
+        {{ else }}
+          <div class="img">
+            <span class="badge">Coming Soon</span>
+            <div class="caption">
+              <div class="kicker">Featured Listing</div>
+              <h3>A VERIFIED LOCAL PICK</h3>
+              <p>Set <code style="color: var(--lime-fizz); font-family: monospace; font-style: normal;">editor_pick: true</code> on any listing's frontmatter and it appears here.</p>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{/* ==================== AD: homepage-hero ==================== */}}
+{{ partial "ad-slot.html" (dict "slot" "homepage-hero" "label" "Display Ad · Editorial Banner") }}
+
+{{/* ==================== TOP 4 FEATURED CATEGORIES ==================== */}}
+<section class="editorial">
+  <div class="container">
+    <div class="section-head-ed">
+      <div class="num">01</div>
+      <div>
+        <h2>The Top Four</h2>
+        <div class="sub">Where this directory goes deepest — the categories we put the most work into.</div>
+      </div>
+      <a href="{{ "/categories/" | relURL }}">All Categories →</a>
+    </div>
+
+    <div class="cat-featured">
+      {{ range hugo.Data.categories.featured }}
+        {{ $count := len (where site.RegularPages "Params.categories" "intersect" (slice .name)) }}
+        <a class="cat-big" href="{{ printf "/categories/%s/" .slug | relURL }}">
+          <div class="bg" style="background: {{ .gradient | safeCSS }};"></div>
+          <div class="top">
+            <div class="icon-wrap"><i data-lucide="{{ .icon }}"></i></div>
+            <span class="count-pill">{{ if gt $count 0 }}{{ $count }} listing{{ if ne $count 1 }}s{{ end }}{{ else }}Coming soon{{ end }}</span>
+          </div>
+          <div class="bottom">
+            <h3>{{ or .display_name .name | upper }}</h3>
+            <div class="subs">
+              {{ range .short_subs }}
+                <span class="sub-pill">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{/* ==================== REMAINING 5 CATEGORIES ==================== */}}
+<section style="padding: 0 0 96px;">
+  <div class="container">
+    <div class="eyebrow" style="margin-bottom: 16px;">More Categories</div>
+    <div class="cat-grid-small">
+      {{ range hugo.Data.categories.secondary }}
+        <a class="cat-sm" href="{{ printf "/categories/%s/" .slug | relURL }}">
+          <div class="icon"><i data-lucide="{{ .icon }}"></i></div>
+          <div class="info">
+            <h4>{{ .name }}</h4>
+            <div class="meta">{{ .short_meta }}</div>
+          </div>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{/* ==================== FEATURED LISTINGS (Section 02) ==================== */}}
+<section class="editorial" style="background: var(--paper);">
+  <div class="container">
+    <div class="section-head-ed">
+      <div class="num">02</div>
+      <div>
+        <h2>This Week's Picks</h2>
+        <div class="sub">Hand-selected by the editors. Updated every Monday.</div>
+      </div>
+      <a href="{{ "/listings/" | relURL }}">All Listings →</a>
+    </div>
+
+    {{ $featured := where site.RegularPages "Params.featured" true }}
+    {{ if $featured }}
+      <div class="listing-grid">
+        {{ range first 6 $featured }}
+          {{ partial "listing-card.html" . }}
+        {{ end }}
+      </div>
+    {{ else }}
+      <div class="empty-state">
+        Featured listings appear here.
+        Add <code>featured: true</code> to a listing's frontmatter to populate this section.
+      </div>
+    {{ end }}
+  </div>
+</section>
+
+{{/* ==================== AD: homepage-mid ==================== */}}
+{{ partial "ad-slot.html" (dict "slot" "homepage-mid" "label" "Display Ad · Mid-Page Placement") }}
+
+{{/* ==================== RECENTLY ADDED (Section 03) ==================== */}}
+<section class="editorial">
+  <div class="container">
+    <div class="section-head-ed">
+      <div class="num">03</div>
+      <div>
+        <h2>New Arrivals</h2>
+        <div class="sub">The latest additions to the directory.</div>
+      </div>
+      <a href="{{ "/listings/" | relURL }}">All New →</a>
+    </div>
+
+    {{ $recent := first 4 (where site.RegularPages "Section" "listings").ByDate.Reverse }}
+    {{ if $recent }}
+      <div class="recent-ed">
+        {{ range $i, $e := $recent }}
+          <div class="recent-ed-row">
+            <span class="idx">—— {{ printf "%02d" (add $i 1) }}</span>
+            <span class="name"><a href="{{ .RelPermalink }}">{{ .Title | upper }}</a></span>
+            <span class="cat">
+              {{ with .Params.categories }}{{ index . 0 }}{{ end }}{{ with .Params.subcategories }} · {{ index . 0 }}{{ end }}
+            </span>
+            <span class="date">{{ .Date.Format "Jan 2, 2006" }}</span>
+          </div>
+        {{ end }}
+      </div>
+    {{ else }}
+      <div class="empty-state">
+        New listings appear here as they're added.
+      </div>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

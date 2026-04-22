@@ -1,0 +1,17 @@
+{{/*
+  /index.json — the search index consumed by Fuse.js (wired up in Step 8).
+  For now: emits an empty array so the JSON output route exists without errors.
+  Step 8 replaces this with: every listing's title, categories, description, url.
+*/}}
+{{- $index := slice -}}
+{{- range where site.RegularPages "Section" "listings" -}}
+  {{- $index = $index | append (dict
+    "title"         .Title
+    "url"           .RelPermalink
+    "categories"    (.Params.categories | default slice)
+    "subcategories" (.Params.subcategories | default slice)
+    "tagline"       (.Params.tagline | default "")
+    "address"       (.Params.address | default "")
+  ) -}}
+{{- end -}}
+{{- $index | jsonify -}}

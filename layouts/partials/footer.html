@@ -1,0 +1,47 @@
+{{/* Dark editorial footer — appears on every page */}}
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <h2>WEST<br>HOLLYWOOD<br>DIRECTORY</h2>
+        <p>{{ site.Params.description }}</p>
+      </div>
+
+      {{/* Top categories — reads from /data/categories.yaml (featured section) */}}
+      <div>
+        <h5>Top Categories</h5>
+        <ul>
+          {{ range hugo.Data.categories.featured }}
+            <li><a href="{{ printf "/categories/%s/" .slug | relURL }}">{{ .name }}</a></li>
+          {{ end }}
+          <li><a href="{{ "/categories/" | relURL }}">All →</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Masthead</h5>
+        <ul>
+          <li><a href="{{ "/about/" | relURL }}">About</a></li>
+          <li><a href="{{ "/contact/" | relURL }}">Contact</a></li>
+          <li><a href="{{ "/add-your-business/" | relURL }}">Add a Listing</a></li>
+          <li><a href="{{ "/advertise/" | relURL }}">Advertise</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="{{ "/privacy/" | relURL }}">Privacy</a></li>
+          <li><a href="{{ "/terms/" | relURL }}">Terms</a></li>
+          <li><a href="{{ "/cookies/" | relURL }}">Cookies</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <div>© {{ now.Year }} · Issue 01 · Los Angeles</div>
+      <div>Independently Published</div>
+    </div>
+  </div>
+</footer>

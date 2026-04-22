@@ -40,6 +40,30 @@ enableRobotsTXT   = true
 [markup.goldmark.renderer]
   unsafe = true  # allow raw HTML in markdown (needed for ad slot placeholders)
 
+# --- Header nav menu -----------------------------------------
+# Shows in the dark masthead on every page, in the order listed here.
+# `weight` controls order (lower = earlier). Keep top 4 categories first.
+[[menu.main]]
+  name = "Fitness"
+  url = "/categories/fitness/"
+  weight = 1
+[[menu.main]]
+  name = "Restaurants"
+  url = "/categories/restaurants-bars/"
+  weight = 2
+[[menu.main]]
+  name = "Mental Health"
+  url = "/categories/mental-health/"
+  weight = 3
+[[menu.main]]
+  name = "Wellness"
+  url = "/categories/wellness/"
+  weight = 4
+[[menu.main]]
+  name = "All"
+  url = "/categories/"
+  weight = 5
+
 # --- Site-wide params (accessible in any template) ------------
 [params]
   description   = "Find the best restaurants, bars, health & wellness, beauty, and local services in West Hollywood, CA."

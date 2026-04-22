@@ -1,0 +1,25 @@
+{{/*
+  Taxonomy term page — renders /categories/fitness/, /subcategories/yoga/, etc.
+  Step 9 replaces this with the full filterable category page.
+  Currently just re-uses the list template so every category URL works.
+*/}}
+{{ define "main" }}
+<section style="padding: 80px 0; min-height: 50vh;">
+  <div class="container">
+    <div class="eyebrow">{{ .Data.Singular | title }}</div>
+    <h1 style="font-size: 72px; text-transform: uppercase; margin: 12px 0 24px;">{{ .Title }}</h1>
+    <p style="color: var(--text-muted); max-width: 620px; margin-bottom: 32px;">Best {{ .Title }} in West Hollywood, CA.</p>
+
+    {{ $pages := .Pages }}
+    {{ if $pages }}
+      <div class="listing-grid">
+        {{ range $pages }}
+          {{ partial "listing-card.html" . }}
+        {{ end }}
+      </div>
+    {{ else }}
+      <div class="empty-state">No listings in this category yet.</div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

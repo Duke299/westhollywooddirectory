@@ -1,0 +1,16 @@
+{{/*
+  Reusable ad slot placeholder.
+
+  Usage:
+    {{ partial "ad-slot.html" (dict "slot" "homepage-hero" "label" "Display Ad · Editorial Banner") }}
+
+  When it's time to drop in real AdSense/EthicalAds code:
+    replace the inner .ad-slot-body div with the ad provider's snippet.
+    The `slot` parameter lets you target different placements differently.
+*/}}
+<div class="container">
+  <div class="ad-slot" data-slot="{{ .slot }}">
+    <div class="ad-slot-body">{{ .label | default "Display Ad" }}</div>
+    <div class="ad-slot-label">&lt;!-- AD SLOT: {{ .slot }} --&gt;</div>
+  </div>
+</div>

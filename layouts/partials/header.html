@@ -1,0 +1,25 @@
+{{/* Dark editorial masthead — appears on every page */}}
+<header class="site-header">
+  <div class="container masthead">
+    <a href="{{ "/" | relURL }}" class="logo">WEST HOLLYWOOD<span class="dot">.</span>DIRECTORY</a>
+
+    {{/* Primary nav — driven by [menu.main] in hugo.toml */}}
+    <nav class="mast-nav">
+      {{ range site.Menus.main }}
+        <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+
+    {{/* Header search — wired to Fuse.js in Step 8 */}}
+    <div class="mast-search">
+      <i data-lucide="search"></i>
+      <input type="search" placeholder="Search the directory…" id="header-search" aria-label="Search directory">
+    </div>
+  </div>
+
+  {{/* Editorial issue strip — listing count updates automatically */}}
+  {{ $count := len (where site.RegularPages "Section" "listings") }}
+  <div class="issue-strip">
+    <span>Issue 01</span>•<span>Spring 2026</span>•<span>The Local Guide</span>•<span>{{ $count }} Verified Listing{{ if ne $count 1 }}s{{ end }}</span>
+  </div>
+</header>

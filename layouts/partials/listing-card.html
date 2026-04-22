@@ -1,0 +1,59 @@
+{{/*
+  Reusable listing card — used on homepage, category pages, and search results.
+
+  Expects a Page as context:
+    {{ partial "listing-card.html" . }}   (inside a range over pages)
+
+  Reads these frontmatter fields (all optional, card is tolerant of missing data):
+    title           (string)   — business name
+    tagline         (string)   — one-line editorial quote
+    address         (string)   — street address
+    hours_summary   (string)   — "Open now · until 11 PM", "By appointment", etc.
+    rating          (number)   — 4.7
+    review_count    (number)   — 234
+    open_now        (bool)     — styles hours in turquoise if true
+    categories      (list)     — top-level (first used for kicker)
+    subcategories   (list)     — (first used for kicker)
+    gradient        (string)   — v1 through v6; picks the placeholder color
+    editor_pick     (bool)     — shows lime-fizz "Editor's Pick" badge
+*/}}
+<a class="listing-card" href="{{ .RelPermalink }}">
+  <div class="listing-img {{ .Params.gradient | default "v1" }}">
+    {{ if .Params.editor_pick }}<span class="badge">Editor's Pick</span>{{ end }}
+  </div>
+  <div class="listing-body">
+
+    {{/* Kicker: "Category · Subcategory" */}}
+    {{ $cat := "" }}{{ with .Params.categories }}{{ $cat = index . 0 }}{{ end }}
+    {{ $sub := "" }}{{ with .Params.subcategories }}{{ $sub = index . 0 }}{{ end }}
+    {{ if or $cat $sub }}
+      <div class="kicker">
+        {{ $cat }}{{ if and $cat $sub }} · {{ end }}{{ $sub }}
+      </div>
+    {{ end }}
+
+    <h3>{{ .Title }}</h3>
+
+    {{ with .Params.tagline }}
+      <p class="lede">“{{ . }}”</p>
+    {{ end }}
+
+    <div class="listing-meta">
+      {{ with .Params.address }}
+        <div class="listing-meta-row"><i data-lucide="map-pin"></i>{{ . }}</div>
+      {{ end }}
+      {{ with .Params.hours_summary }}
+        <div class="listing-meta-row">
+          <i data-lucide="clock"></i>
+          {{ if $.Params.open_now }}<span class="open-now">{{ . }}</span>{{ else }}{{ . }}{{ end }}
+        </div>
+      {{ end }}
+      {{ with .Params.rating }}
+        <div class="listing-meta-row rating">
+          <i data-lucide="star"></i>{{ . }}{{ with $.Params.review_count }} ({{ . }}){{ end }}
+        </div>
+      {{ end }}
+    </div>
+
+  </div>
+</a>
